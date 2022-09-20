@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <title>Weather App</title>
 </head>
+
 <body>
-    
+    <div class="jumbotron jumbotron-fluid text-center bg-primary" style="height: 100px;">
+        <div class="container">
+            <h1 class="display-4">Weather Dashboard</h1>
+        </div>
+    </div>
+    <main class="flex-row justify-space-between">
+        <form class="col-4">
+            <h2>Search for a City:</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Denver">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
 </body>
+
 </html>
