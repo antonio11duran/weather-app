@@ -6,7 +6,7 @@ function getApi(event) {
     event.preventDefault();
 
     var city = cityInput.value.trim();
-    var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=' + apiKey;
+    var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=fc16f87174dc7bfe353eec13a82879dc';
 
     fetch(apiUrl)
         .then(function (response) {
