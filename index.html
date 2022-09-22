@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+
     <title>Weather App</title>
 </head>
 
@@ -16,28 +17,23 @@
         </div>
     </div>
     <main class="flex-row justify-space-between">
-        <form class="col-4">
-            <h2>Search for a City:</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" id="city-input" aria-describedby="emailHelp"
-                    placeholder="Denver">
-            </div>
-            <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
-        </form>
-        <div class="btn-group-vertical"></div>
-        <div class="weather-container col-8">
-            <div class="row">
-                <div class="card col-12" id="today-data"></div>
-            </div>
-            <div class="row">
-                <div class="card col-2" id="one-day-later"></div>
-                <div class="card col-2" id="two-days-later"></div>
-                <div class="card col-2" id="three-days-later"></div>
-                <div class="card col-2" id="four-days-later"></div>
-                <div class="card col-2" id="five-days-later"></div>
-            </div>
+        <div class="col-4">
+            <form>
+                <h2>Search for a City:</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="city-input" aria-describedby="emailHelp"
+                        placeholder="Denver">
+                </div>
+                <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+            </form>
+            <div class="btn-group-vertical"></div>
+        </div>
+        <div class="weather-container col-8" id="weather-container">
+            <div class="row" id="today-data"></div>
+            <div class="row" id="forecast-data"></div>
         </div>
     </main>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="./assets/script.js"></script>
 </body>
 
