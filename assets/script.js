@@ -6,7 +6,7 @@ var todayData = document.getElementById("today-data");
 var forecastData = document.getElementById("forecast-data");
 
 var formSubmitHandler = function (event) {
-    event.preventDefault();
+    // searchHistory();
 
     var city = cityInput.value.trim();
 
@@ -39,7 +39,7 @@ function getApi(city) {
         })
 };
 
-var displayWeather = function(info) {
+var displayWeather = function (info) {
     console.log(info);
     console.log(info.city.name);
     console.log(info.list[0].main.temp);
@@ -50,32 +50,65 @@ var displayWeather = function(info) {
     console.log(listArray);
 
     var cityName = info.city.name;
-    
+
     for (var i = 0; i < listArray.length; i++) {
-        var cityDate = moment(listArray[i].dt).format("l");
-        var icon = listArray[i].weather[0].icon
+        var cityDate = moment(listArray[i].dt_txt).format('l');
+        var iconCode = listArray[i].weather[0].icon;
         var temperature = listArray[i].main.temp;
         var windSpeed = listArray[i].wind.speed;
         var humidity = listArray[i].main.humidity;
 
         if (i === 0) {
             var todayTitle = document.createElement('h2');
-            todayTitle.textContent = cityName + " (" + cityDate + ") " + icon;
-            todayData.appendChild(todayTitle);
-
-            var todayTemp = document.createElement('span');
+            todayTitle.textContent = cityName + " (" + cityDate + ") ";
+            
+            var todayIcon = document.createElement('img');
+            todayIcon.src = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+            
+            weatherContainer.appendChild(todayTitle);
+            todayTitle.appendChild(todayIcon);
+            
+            var todayTemp = document.createElement('p');
             todayTemp.textContent = "Temp: " + temperature + "°F";
-            todayTitle.appendChild(todayTemp);
+            weatherContainer.appendChild(todayTemp);
 
-            var todayWind = document.createElement('span');
+            var todayWind = document.createElement('p');
             todayWind.textContent = "Wind: " + windSpeed + " MPH";
-            todayTemp.appendChild(todayWind);
+            weatherContainer.appendChild(todayWind);
 
-            var todayHumid = document.createElement('span');
+            var todayHumid = document.createElement('p');
             todayHumid.textContent = "Humidity: " + humidity + "%";
-            todayWind.appendChild(todayHumid);
+            weatherContainer.appendChild(todayHumid);
         }
     }
 }
 
-submitButton.addEventListener("click", formSubmitHandler);
+// var searchHistory = function () {
+//     var searchCity = cityInput.value;
+//     localStorage.setItem("searchItem", searchCity);
+// }
+
+// var renderHistory = function () {
+//     var savedCity = localStorage.getItem("searchItem");
+//     if (savedCity !== null) {
+//         var historyButton = document.createElement('button');
+//         historyList.appendChild(historyButton);
+//         historyButton.classList = 'submit';
+//         historyButton.textContent = savedCity;
+//     } else {
+//         return;
+//     }
+// }
+
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    // searchHistory();
+    // renderHistory();
+    formSubmitHandler();
+});
+
+// function init() {
+//     renderHistory();
+// }
+
+// init();
