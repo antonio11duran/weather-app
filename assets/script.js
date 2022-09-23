@@ -5,25 +5,19 @@ var historyList = document.getElementById("history-list");
 var todayData = document.getElementById("today-container");
 var forecastData = document.getElementById("forecast-container");
 
+
 var formSubmitHandler = function (event) {
-    searchHistory();
     
     var city = cityInput.value.trim();
     
     if (city) {
+        searchHistory();
         getApi(city);
         
         todayData.textContent = '';
         forecastData.textContent = '';
         cityInput.value = '';
-    } else if (savedCity) {
-        getApi(city);
-
-        todayData.textContent = '';
-        forecastData.textContent = '';
-        cityInput.value = '';
-    } 
-    else {
+    } else {
         alert("Please enter a city name.")
     }
 }
@@ -48,15 +42,7 @@ function getApi(city) {
 };
 
 var displayWeather = function (info) {
-    console.log(info);
-    console.log(info.city.name);
-    console.log(info.list[0].main.temp);
-    console.log((info.list).length);
-
     var listArray = info.list;
-
-    console.log(listArray);
-
     var cityName = info.city.name;
 
     for (var i = 0; i < listArray.length; i++) {
@@ -113,26 +99,27 @@ var displayWeather = function (info) {
 }
 
 var searchHistory = function () {
-    var searchCity = cityInput.value;
-    var searchItems = JSON.parse(searchCity);
-    localStorage.setItem("searchItem", JSON.stringify(searchItems));
-}
+        var searchCity = cityInput.value;
+        localStorage.setItem("searchItem", searchCity);
+};
 
 var renderHistory = function () {
-    var savedCity = JSON.parse(localStorage.getItem("searchItem"));
+    var savedCity = localStorage.getItem("searchItem");
     if (savedCity !== null) {
-        for (var b = 0; b < savedCity.length; b++) {
         var historyButton = document.createElement('button');
         historyList.appendChild(historyButton);
         historyButton.classList = 'submit';
-        historyButton.textContent = savedCity[b];
+        historyButton.textContent = savedCity;
         
         historyButton.addEventListener("click", function (event) {
             event.preventDefault();
             searchHistory();
             renderHistory();
-            formSubmitHandler();
-        })};
+            getApi(savedCity);
+            todayData.textContent = '';
+            forecastData.textContent = '';
+            cityInput.value = '';
+        });
     } else {
     return;
 }};
