@@ -7,13 +7,13 @@ var forecastData = document.getElementById("forecast-container");
 
 
 var formSubmitHandler = function (event) {
-    
+
     var city = cityInput.value.trim();
-    
+
     if (city) {
         searchHistory();
         getApi(city);
-        
+
         todayData.textContent = '';
         forecastData.textContent = '';
         cityInput.value = '';
@@ -55,13 +55,13 @@ var displayWeather = function (info) {
         if (i === 0) {
             var todayTitle = document.createElement('h2');
             todayTitle.textContent = cityName + " (" + cityDate + ") ";
-            
+
             var todayIcon = document.createElement('img');
             todayIcon.src = "http://openweathermap.org/img/wn/" + iconCode + ".png";
-            
+
             todayData.appendChild(todayTitle);
             todayTitle.appendChild(todayIcon);
-            
+
             var todayTemp = document.createElement('p');
             todayTemp.textContent = "Temp: " + temperature + "°F";
             todayData.appendChild(todayTemp);
@@ -76,13 +76,13 @@ var displayWeather = function (info) {
         } else {
             var forecastTitle = document.createElement('h2');
             forecastTitle.textContent = cityName + " (" + cityDate + ") ";
-            
+
             var forecastIcon = document.createElement('img');
             forecastIcon.src = "http://openweathermap.org/img/wn/" + iconCode + ".png";
-            
+
             forecastData.appendChild(forecastTitle);
             forecastTitle.appendChild(forecastIcon);
-            
+
             var forecastTemp = document.createElement('p');
             forecastTemp.textContent = "Temp: " + temperature + "°F";
             forecastData.appendChild(forecastTemp);
@@ -99,8 +99,10 @@ var displayWeather = function (info) {
 }
 
 var searchHistory = function () {
-        var searchCity = cityInput.value;
+    var searchCity = cityInput.value;
+    if (searchCity) {
         localStorage.setItem("searchItem", searchCity);
+    }
 };
 
 var renderHistory = function () {
@@ -110,7 +112,7 @@ var renderHistory = function () {
         historyList.appendChild(historyButton);
         historyButton.classList = 'submit';
         historyButton.textContent = savedCity;
-        
+
         historyButton.addEventListener("click", function (event) {
             event.preventDefault();
             searchHistory();
@@ -121,8 +123,9 @@ var renderHistory = function () {
             cityInput.value = '';
         });
     } else {
-    return;
-}};
+        return;
+    }
+};
 
 
 submitButton.addEventListener("click", function (event) {
