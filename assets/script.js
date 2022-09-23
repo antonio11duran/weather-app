@@ -107,7 +107,7 @@ var searchHistory = function () {
 
 var renderHistory = function () {
     var savedCity = localStorage.getItem("searchItem");
-    if (savedCity !== null) {
+    if (savedCity) {
         var historyButton = document.createElement('button');
         historyList.appendChild(historyButton);
         historyButton.classList = 'submit';
@@ -115,8 +115,6 @@ var renderHistory = function () {
 
         historyButton.addEventListener("click", function (event) {
             event.preventDefault();
-            searchHistory();
-            renderHistory();
             getApi(savedCity);
             todayData.textContent = '';
             forecastData.textContent = '';
