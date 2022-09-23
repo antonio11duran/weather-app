@@ -2,8 +2,8 @@ var submitButton = document.getElementById("submit-button");
 var weatherContainer = document.getElementById("weather-container");
 var cityInput = document.getElementById("city-input");
 var historyList = document.querySelector("btn-group-vertical");
-var todayData = document.getElementById("today-data");
-var forecastData = document.getElementById("forecast-data");
+var todayData = document.getElementById("today-container");
+var forecastData = document.getElementById("forecast-container");
 
 var formSubmitHandler = function (event) {
     // searchHistory();
@@ -13,7 +13,9 @@ var formSubmitHandler = function (event) {
     if (city) {
         getApi(city);
 
-        weatherContainer.textContent = '';
+        // weatherContainer.textContent = '';
+        todayData.textContent = '';
+        forecastData.textContent = '';
         cityInput.value = '';
     } else {
         alert("Please enter a city name.")
@@ -65,20 +67,41 @@ var displayWeather = function (info) {
             var todayIcon = document.createElement('img');
             todayIcon.src = "http://openweathermap.org/img/wn/" + iconCode + ".png";
             
-            weatherContainer.appendChild(todayTitle);
+            todayData.appendChild(todayTitle);
             todayTitle.appendChild(todayIcon);
             
             var todayTemp = document.createElement('p');
             todayTemp.textContent = "Temp: " + temperature + "°F";
-            weatherContainer.appendChild(todayTemp);
+            todayData.appendChild(todayTemp);
 
             var todayWind = document.createElement('p');
             todayWind.textContent = "Wind: " + windSpeed + " MPH";
-            weatherContainer.appendChild(todayWind);
+            todayData.appendChild(todayWind);
 
             var todayHumid = document.createElement('p');
             todayHumid.textContent = "Humidity: " + humidity + "%";
-            weatherContainer.appendChild(todayHumid);
+            todayData.appendChild(todayHumid);
+        } else {
+            var forecastTitle = document.createElement('h2');
+            forecastTitle.textContent = cityName + " (" + cityDate + ") ";
+            
+            var forecastIcon = document.createElement('img');
+            forecastIcon.src = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+            
+            forecastData.appendChild(forecastTitle);
+            forecastTitle.appendChild(forecastIcon);
+            
+            var forecastTemp = document.createElement('p');
+            forecastTemp.textContent = "Temp: " + temperature + "°F";
+            forecastData.appendChild(forecastTemp);
+
+            var forecastWind = document.createElement('p');
+            forecastWind.textContent = "Wind: " + windSpeed + " MPH";
+            forecastData.appendChild(forecastWind);
+
+            var forecastHumid = document.createElement('p');
+            forecastHumid.textContent = "Humidity: " + humidity + "%";
+            forecastData.appendChild(forecastHumid);
         }
     }
 }
