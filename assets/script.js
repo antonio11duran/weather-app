@@ -1,23 +1,29 @@
 var submitButton = document.getElementById("submit-button");
 var weatherContainer = document.getElementById("weather-container");
 var cityInput = document.getElementById("city-input");
-var historyList = document.querySelector("btn-group-vertical");
+var historyList = document.getElementById("history-list");
 var todayData = document.getElementById("today-container");
 var forecastData = document.getElementById("forecast-container");
 
 var formSubmitHandler = function (event) {
-    // searchHistory();
-
+    searchHistory();
+    
     var city = cityInput.value.trim();
-
+    
     if (city) {
         getApi(city);
-
-        // weatherContainer.textContent = '';
+        
         todayData.textContent = '';
         forecastData.textContent = '';
         cityInput.value = '';
-    } else {
+    } else if (savedCity) {
+        getApi(city);
+
+        todayData.textContent = '';
+        forecastData.textContent = '';
+        cityInput.value = '';
+    } 
+    else {
         alert("Please enter a city name.")
     }
 }
@@ -106,32 +112,41 @@ var displayWeather = function (info) {
     }
 }
 
-// var searchHistory = function () {
-//     var searchCity = cityInput.value;
-//     localStorage.setItem("searchItem", searchCity);
-// }
+var searchHistory = function () {
+    var searchCity = cityInput.value;
+    var searchItems = JSON.parse(searchCity);
+    localStorage.setItem("searchItem", JSON.stringify(searchItems));
+}
 
-// var renderHistory = function () {
-//     var savedCity = localStorage.getItem("searchItem");
-//     if (savedCity !== null) {
-//         var historyButton = document.createElement('button');
-//         historyList.appendChild(historyButton);
-//         historyButton.classList = 'submit';
-//         historyButton.textContent = savedCity;
-//     } else {
-//         return;
-//     }
-// }
+var renderHistory = function () {
+    var savedCity = JSON.parse(localStorage.getItem("searchItem"));
+    if (savedCity !== null) {
+        for (var b = 0; b < savedCity.length; b++) {
+        var historyButton = document.createElement('button');
+        historyList.appendChild(historyButton);
+        historyButton.classList = 'submit';
+        historyButton.textContent = savedCity[b];
+        
+        historyButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            searchHistory();
+            renderHistory();
+            formSubmitHandler();
+        })};
+    } else {
+    return;
+}};
+
 
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
-    // searchHistory();
-    // renderHistory();
+    searchHistory();
+    renderHistory();
     formSubmitHandler();
 });
 
-// function init() {
-//     renderHistory();
-// }
+function init() {
+    renderHistory();
+}
 
-// init();
+init();
