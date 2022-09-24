@@ -54,6 +54,8 @@ var displayWeather = function (info) {
         var humidity = listArray[i].main.humidity;
 
         if (i === 0) {
+            todayData.classList = "today-container row card col-12 border-primary";
+
             var todayTitle = document.createElement('h2');
             todayTitle.textContent = cityName + " (" + cityDate + ") ";
 
@@ -75,26 +77,30 @@ var displayWeather = function (info) {
             todayHumid.textContent = "Humidity: " + humidity + "%";
             todayData.appendChild(todayHumid);
         } else {
+            var forecastCard = document.createElement('div');
+            forecastCard.classList = 'future-container card col-2';
+            forecastData.appendChild(forecastCard);
+
             var forecastTitle = document.createElement('h2');
             forecastTitle.textContent = cityName + " (" + cityDate + ") ";
 
             var forecastIcon = document.createElement('img');
             forecastIcon.src = "http://openweathermap.org/img/wn/" + iconCode + ".png";
 
-            forecastData.appendChild(forecastTitle);
+            forecastCard.appendChild(forecastTitle);
             forecastTitle.appendChild(forecastIcon);
 
             var forecastTemp = document.createElement('p');
             forecastTemp.textContent = "Temp: " + temperature + "°F";
-            forecastData.appendChild(forecastTemp);
+            forecastCard.appendChild(forecastTemp);
 
             var forecastWind = document.createElement('p');
             forecastWind.textContent = "Wind: " + windSpeed + " MPH";
-            forecastData.appendChild(forecastWind);
+            forecastCard.appendChild(forecastWind);
 
             var forecastHumid = document.createElement('p');
             forecastHumid.textContent = "Humidity: " + humidity + "%";
-            forecastData.appendChild(forecastHumid);
+            forecastCard.appendChild(forecastHumid);
         }
     }
 }
@@ -114,7 +120,8 @@ var renderHistory = function () {
         if (savedCity !== null) {
             var historyButton = document.createElement('button');
             historyList.appendChild(historyButton);
-            historyButton.classList = 'submit';
+            historyButton.setAttribute("type", "submit");
+            historyButton.setAttribute("style", "width: 150px");
             historyButton.textContent = savedCity;
             
             historyButton.addEventListener("click", function (event) {

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Weather App</title>
 </head>
 
@@ -15,21 +16,28 @@
             <h1 class="display-4">Weather Dashboard</h1>
         </div>
     </div>
-    <main class="justify-space-between">
-        <div class="col-4">
-            <form>
-                <h2>Search for a City:</h2>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="city-input" aria-describedby="emailHelp"
-                        placeholder="Denver">
+    <main>
+        <div class="row justify-content-between">
+            <div class="card col-4 text-center border-dark" id="search-box">
+                <form>
+                    <h2>Search for a City:</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="city-input" aria-describedby="emailHelp"
+                            placeholder="Denver">
+                    </div>
+                    <div class="row card text-center">
+                        <button type="submit" class="btn btn-primary justify-content-center"
+                            id="submit-button">Submit</button>
+                    </div>
+                    <div class="btn-group-vertical" id="history-list"></div>
+                </form>
+            </div>
+            <div class="weather-container col-7" id="weather-container">
+                <div id="today-container"></div>
+                <div class="row">
+                    <div class="forecast-container row justify-content-between col-12 border-secondary" id="forecast-container"></div>
                 </div>
-                <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
-            </form>
-            <div class="btn-group-vertical" id="history-list"></div>
-        </div>
-        <div class="weather-container col-8" id="weather-container">
-            <div class="today-container row col-2" id="today-container"></div>
-            <div class="forecast-container row col-2" id="forecast-container"></div>
+            </div>
         </div>
     </main>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
