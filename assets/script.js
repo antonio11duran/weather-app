@@ -11,8 +11,9 @@ var formSubmitHandler = function (event) {
     var city = cityInput.value.trim();
 
     if (city) {
-        searchHistory();
         getApi(city);
+        searchHistory();
+        renderHistory();
 
         todayData.textContent = '';
         forecastData.textContent = '';
@@ -45,7 +46,7 @@ var displayWeather = function (info) {
     var listArray = info.list;
     var cityName = info.city.name;
 
-    for (var i = 0; i < listArray.length; i++) {
+    for (var i = 0; i < listArray.length; i = i + 7) {
         var cityDate = moment(listArray[i].dt_txt).format('l');
         var iconCode = listArray[i].weather[0].icon;
         var temperature = listArray[i].main.temp;
@@ -98,8 +99,11 @@ var displayWeather = function (info) {
     }
 }
 
+var searchArray = [];
+
 var searchHistory = function () {
     var searchCity = cityInput.value;
+    searchArray.push(searchCity);
     if (searchCity) {
         localStorage.setItem("searchItem", searchCity);
     }
@@ -107,29 +111,30 @@ var searchHistory = function () {
 
 var renderHistory = function () {
     var savedCity = localStorage.getItem("searchItem");
-    if (savedCity !== null) {
-        var historyButton = document.createElement('button');
-        historyList.appendChild(historyButton);
-        historyButton.classList = 'submit';
-        historyButton.textContent = savedCity;
-
-        historyButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            getApi(savedCity);
-            todayData.textContent = '';
-            forecastData.textContent = '';
-            cityInput.value = '';
-        });
-    } else {
-        return;
-    }
+    console.log(savedCity);
+    console.log(savedCity.type);
+        if (savedCity !== null) {
+            var historyButton = document.createElement('button');
+            historyList.appendChild(historyButton);
+            historyButton.classList = 'submit';
+            historyButton.textContent = savedCity;
+            
+            historyButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                getApi(savedCity);
+                todayData.textContent = '';
+                forecastData.textContent = '';
+                cityInput.value = '';
+            });
+        } else {
+            return;
+        }
+    
 };
 
 
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
-    searchHistory();
-    renderHistory();
     formSubmitHandler();
 });
 
