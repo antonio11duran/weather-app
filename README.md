@@ -11,6 +11,6 @@ Also, the user's searchs will be displayed as buttons under the submit button. T
 
 ## API Reference
 
-I used the Open Weather Map API to pull current and forecasted weather data for the next 5 days. You can find out more here: https://openweathermap.org/forecast5.
+I used the Open Weather Map API to pull current and forecasted weather data for the next 5 days. You can find out more here: <https://openweathermap.org/forecast5>.
 
-Live page:
+Live page: <https://antonio11duran.github.io/weather-app/>
