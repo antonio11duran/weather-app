@@ -107,7 +107,7 @@ var searchHistory = function () {
 
 var renderHistory = function () {
     var savedCity = localStorage.getItem("searchItem");
-    if (savedCity) {
+    if (savedCity !== null) {
         var historyButton = document.createElement('button');
         historyList.appendChild(historyButton);
         historyButton.classList = 'submit';
